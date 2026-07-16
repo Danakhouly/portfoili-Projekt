@@ -1,0 +1,140 @@
+table olist_orders_dataset
+	lineageTag: 33af1157-3146-4032-a457-383910f130e5
+
+	column order_id
+		dataType: string
+		lineageTag: 884ffa07-a22d-4373-b5b5-677e8f05c83a
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 83d21883-0fc9-4f05-8ec0-aa4f1f5000a5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: d1869396-b41a-4d31-be3c-1f3e71dba13d
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_purchase_timestamp
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6adae618-a964-4015-b5c3-4201cf884dff
+		summarizeBy: none
+		sourceColumn: order_purchase_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_approved_at
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 57f514c3-715e-4062-9a4d-4c5c18ed9295
+		summarizeBy: none
+		sourceColumn: order_approved_at
+
+		variation Variation
+			isDefault
+			relationship: 85f4c972-9660-43c5-8c74-444d5b29e869
+			defaultHierarchy: LocalDateTable_2749103c-aa79-4631-a9d1-d7c0286d7c27.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivered_carrier_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f153222b-ece9-4780-a306-a147d5c9a8a2
+		summarizeBy: none
+		sourceColumn: order_delivered_carrier_date
+
+		variation Variation
+			isDefault
+			relationship: 39c10ff6-7c7d-4646-bac7-f70f95235bf2
+			defaultHierarchy: LocalDateTable_a6f327ea-acf3-402f-a5f1-a07416615e2f.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 269ae097-5848-43c4-8901-b747ad83b64c
+		summarizeBy: none
+		sourceColumn: order_delivered_customer_date
+
+		variation Variation
+			isDefault
+			relationship: 793b7b77-5694-41c1-a32f-b1775475490c
+			defaultHierarchy: LocalDateTable_be318493-efa2-4dea-8762-51b2fb437427.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6f3442d4-2067-432e-baa5-f617c0fe166f
+		summarizeBy: none
+		sourceColumn: order_estimated_delivery_date
+
+		variation Variation
+			isDefault
+			relationship: 18f6da37-5848-420e-a625-f7866fe19c89
+			defaultHierarchy: LocalDateTable_36dfbfde-5f76-48af-9ff4-9f0ecfaf9c42.Datumshierarchie
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Delivery_Delay_Days = DATEDIFF( olist_orders_dataset[order_estimated_delivery_date], olist_orders_dataset[order_delivered_customer_date], DAY)
+		formatString: 0
+		lineageTag: db57cab6-e4e5-4167-aa09-cdc063271daa
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Is_Delayed = IF(olist_orders_dataset[Delivery_Delay_Days] > 0 , "Delayed" , "On Time")
+		lineageTag: be98837c-9212-4927-a0ef-8b8d68b256d8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Delay_Bucket = ```
+			SWITCH(TRUE(),
+			                      olist_orders_dataset[Delivery_Delay_Days] <= 0, "On Time / Early",
+			                      olist_orders_dataset[Delivery_Delay_Days] <= 3, "1-3 Days Late", 
+			                      olist_orders_dataset[Delivery_Delay_Days] <= 7, "4-7 Days Late",
+			                      "8+ Days Late"
+			                      )
+			```
+		lineageTag: 0a03c503-c333-47de-a4cb-6373e0097c64
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition olist_orders_dataset = m
+		mode: import
+		source =
+				let
+				    Quelle = Csv.Document(File.Contents("C:\Users\Trainee\Desktop\Portfolio Projekt\Dataset - CSV Files\olist_orders_dataset.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Höher gestufte Header" = Table.PromoteHeaders(Quelle, [PromoteAllScalars=true]),
+				    #"Geänderter Typ" = Table.TransformColumnTypes(#"Höher gestufte Header",{{"order_id", type text}, {"customer_id", type text}, {"order_status", type text}, {"order_purchase_timestamp", type datetime}, {"order_approved_at", type datetime}, {"order_delivered_carrier_date", type datetime}, {"order_delivered_customer_date", type datetime}, {"order_estimated_delivery_date", type datetime}}),
+				    #"Gefilterte Zeilen" = Table.SelectRows(#"Geänderter Typ", each true),
+				    #"purchase to Datum datentyp" = Table.TransformColumnTypes(#"Gefilterte Zeilen",{{"order_purchase_timestamp", type date}, {"order_delivered_customer_date", type date}, {"order_estimated_delivery_date", type date}})
+				in
+				    #"purchase to Datum datentyp"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

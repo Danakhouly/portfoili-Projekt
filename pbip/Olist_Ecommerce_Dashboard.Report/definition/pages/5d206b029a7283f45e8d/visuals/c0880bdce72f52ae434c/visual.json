@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "c0880bdce72f52ae434c",
+  "position": {
+    "x": 201.91696137015259,
+    "y": 298.30335620481833,
+    "z": 10000,
+    "height": 92,
+    "width": 146,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "12 Days",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "20pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Avg Delivery Time"
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

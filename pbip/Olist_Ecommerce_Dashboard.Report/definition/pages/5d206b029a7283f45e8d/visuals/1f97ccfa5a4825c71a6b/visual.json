@@ -1,0 +1,292 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "1f97ccfa5a4825c71a6b",
+  "position": {
+    "x": 551.60926906245993,
+    "y": 374.71363217762467,
+    "z": 19000,
+    "height": 82,
+    "width": 450,
+    "tabOrder": 19000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Calender_Table"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              },
+              "queryRef": "Date_Calender_Table.Year",
+              "nativeQueryRef": "Year",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Calender_Table"
+                    }
+                  },
+                  "Property": "Month Short"
+                }
+              },
+              "queryRef": "Date_Calender_Table.Month Short",
+              "nativeQueryRef": "Month Short",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "__Measures"
+                    }
+                  },
+                  "Property": "__4_Total_Orders"
+                }
+              },
+              "queryRef": "__Measures.__4_Total_Orders",
+              "nativeQueryRef": "__4_Total_Orders"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "showMarker": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "markerSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "3D"
+                }
+              }
+            },
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#307EA8'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "__Measures.__4_Total_Orders"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "37dc2148b67e9936ed9e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Date_Calender_Table"
+              }
+            },
+            "Property": "Month Short"
+          }
+        },
+        "type": "Categorical",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "79ff49a7e382be5b1a15",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Date_Calender_Table"
+              }
+            },
+            "Property": "Date"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "Date_Calender_Table",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "And": {
+                  "Left": {
+                    "Comparison": {
+                      "ComparisonKind": 2,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Date"
+                        }
+                      },
+                      "Right": {
+                        "DateSpan": {
+                          "Expression": {
+                            "Literal": {
+                              "Value": "datetime'2017-09-01T00:00:00'"
+                            }
+                          },
+                          "TimeUnit": 5
+                        }
+                      }
+                    }
+                  },
+                  "Right": {
+                    "Comparison": {
+                      "ComparisonKind": 4,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Date"
+                        }
+                      },
+                      "Right": {
+                        "DateSpan": {
+                          "Expression": {
+                            "Literal": {
+                              "Value": "datetime'2018-08-31T00:00:00'"
+                            }
+                          },
+                          "TimeUnit": 5
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

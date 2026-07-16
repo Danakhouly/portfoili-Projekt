@@ -1,0 +1,168 @@
+table __Measures
+	lineageTag: 5cf67d7d-f9d8-432d-b3ba-d9acdcabd8b7
+
+	measure __1_Total_sales = SUM(olist_order_items_dataset[price])
+		lineageTag: 704b5c4b-d76c-4ad3-b4c6-aab2c33691e2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure __2_Total_Freight = SUM(olist_order_items_dataset[freight_value])
+		lineageTag: 12519e97-30e7-4cad-9504-2a8d72de225d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure __3_Total_Revenue = [__1_Total_sales] + [__2_Total_Freight]
+		lineageTag: 44bb01ba-96fe-4a8a-9682-472934bc3ad1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure __4_Total_Orders = DISTINCTCOUNT(olist_order_items_dataset[order_id])
+		formatString: #,0
+		lineageTag: f264dd6d-9bce-495f-b01e-f58b4b3e50da
+
+	measure __5_Average_Order_value = DIVIDE([__1_Total_sales], [__4_Total_Orders], 0)
+		lineageTag: 5980a51f-0039-4a05-bf96-85bc0f5f4fa4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure __6_Late_Deliveries = ```
+			CALCULATE([__4_Total_Orders], 
+			                                olist_orders_dataset[order_delivered_customer_date] > olist_orders_dataset[order_estimated_delivery_date],
+			                                NOT(ISBLANK(olist_orders_dataset[order_delivered_customer_date]))
+			)
+			```
+		formatString: 0
+		lineageTag: 31c5fcc2-3cf9-4d12-b378-94b1b0ac1013
+
+	measure __7_Late_Delivery_Rate = DIVIDE([__6_Late_Deliveries], [__4_Total_Orders],0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 404c7a45-6e56-4dd5-a49d-cfd4652944d1
+
+	measure __8_Total_Payment = sum(olist_order_payments_dataset[payment_value])
+		formatString: 0
+		lineageTag: f16e8f01-2896-4416-a304-c522256a3a25
+
+	measure __9_Average_Review_Score =
+			CALCULATE(AVERAGE(olist_order_reviews_dataset[review_score]),
+			                                    CROSSFILTER(olist_orders_dataset[order_id], olist_order_items_dataset[order_id], Both))
+		formatString: 0.00
+		lineageTag: 68803f4c-83b0-4a63-b23d-0cbdb8b997a8
+
+	measure _10_Average_Installments = AVERAGE(olist_order_payments_dataset[payment_installments])
+		lineageTag: b6de0264-7f12-4347-a106-66cfec69611c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _11_Average_payment_value =
+			DIVIDE(sum(olist_order_payments_dataset[payment_value]),
+			                            DISTINCTCOUNT(olist_order_payments_dataset[order_id])
+			                            )
+		lineageTag: 062423a3-207c-4ed7-b649-6f6a438fb7ff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _12_Avg_Delivery_delay = ```
+			CALCULATE(AVERAGE(olist_orders_dataset[Delivery_Delay_Days]), 
+			 NOT(ISBLANK(olist_orders_dataset[order_delivered_customer_date])),
+			    CROSSFILTER(olist_order_items_dataset[order_id], olist_orders_dataset[order_id], BOTH)
+			)
+			```
+		lineageTag: f9a21266-66b2-45c4-bafc-d9f5476af18d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _13_Avg_Delivery_Days =
+			
+			CALCULATE(
+			    AVERAGEX(
+			        olist_orders_dataset,
+			        DATEDIFF(olist_orders_dataset[order_purchase_timestamp], olist_orders_dataset[order_delivered_customer_date], DAY)
+			    ),
+			    NOT(ISBLANK(olist_orders_dataset[order_delivered_customer_date])),
+			    CROSSFILTER(olist_order_items_dataset[order_id], olist_orders_dataset[order_id], BOTH)
+			)
+		lineageTag: c9c19457-cc0e-47b4-8f03-68bf751475de
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure _14_Seller_Delayed_Rate =
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNTROWS(olist_orders_dataset),
+			        olist_orders_dataset[Is_Delayed] = "Delayed"
+			    ),
+			    CALCULATE(
+			        COUNTROWS(olist_orders_dataset)
+			    )
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 44e6394e-96eb-4b89-a81a-06783843c6f9
+
+	measure _15_Seller_Rank_Qualified =
+			
+			RANKX(
+			    FILTER(
+			    ALL(olist_sellers_dataset[seller_id]),
+			    CALCULATE(__Measures[__4_Total_Orders]) >= 10
+			    ),
+			    [_14_Seller_Delayed_Rate],
+			    ,
+			    DESC
+			)
+		formatString: 0
+		lineageTag: ca299bcc-ecfd-4ad0-b3f6-aaf401df3d97
+
+	measure _16_Seller_Risk_Score =
+			
+			__Measures[_14_Seller_Delayed_Rate] * (5 - __Measures[__9_Average_Review_Score])
+		lineageTag: cb6c7ff6-0eaf-4e90-ae55-80d3a718a7b9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% High Risk Sellers' = ```
+			
+			VAR QualifiedSellers = 
+			    FILTER(
+			        ALL(olist_sellers_dataset[seller_id]),
+			        CALCULATE([__4_Total_Orders]) >= 10
+			    )
+			VAR HighRiskCount = 
+			    COUNTROWS(
+			        FILTER(
+			            QualifiedSellers,
+			            CALCULATE([_14_Seller_Delayed_Rate]) > 0.15
+			        )
+			    )
+			VAR TotalQualified = COUNTROWS(QualifiedSellers)
+			RETURN
+			    DIVIDE(HighRiskCount, TotalQualified)
+			```
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 6b565898-d65c-46f9-9ea8-1d7e16ec8ad6
+
+	measure _17_%_On_Time_Delivery = 1- [__7_Late_Delivery_Rate]
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: e9645757-e068-4970-9263-bcf4468e8211
+
+	measure _18_Active_Customers = ```
+			
+			    DISTINCTCOUNT(olist_customers_dataset[customer_unique_id])
+			```
+		formatString: #,0
+		lineageTag: 9a66159a-1e28-4fc2-a9a9-552fc19713ec
+
+	partition __Measures = m
+		mode: import
+		source =
+				let
+				    Quelle = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Spalte ""1""" = _t]),
+				    #"Geänderter Typ" = Table.TransformColumnTypes(Quelle,{{"Spalte ""1""", type text}}),
+				    #"Entfernte Spalten" = Table.RemoveColumns(#"Geänderter Typ",{"Spalte ""1"""})
+				in
+				    #"Entfernte Spalten"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

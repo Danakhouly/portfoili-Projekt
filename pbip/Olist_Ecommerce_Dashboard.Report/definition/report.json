@@ -1,0 +1,355 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY26SU05",
+      "reportVersionAtImport": {
+        "visual": "2.9.0",
+        "report": "3.3.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "NewExecutive",
+      "reportVersionAtImport": {
+        "visual": "2.10.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9234461ded9665f6f171",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "olist_order_payments_dataset"
+              }
+            },
+            "Property": "payment_type"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "o",
+              "Entity": "olist_order_payments_dataset",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "In": {
+                      "Expressions": [
+                        {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "o"
+                              }
+                            },
+                            "Property": "payment_type"
+                          }
+                        }
+                      ],
+                      "Values": [
+                        [
+                          {
+                            "Literal": {
+                              "Value": "'not_defined'"
+                            }
+                          }
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {
+                "isInvertedSelectionMode": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "true"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "2f0ee63badf8f82b4929",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Date_Calender_Table"
+              }
+            },
+            "Property": "Date"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "Date_Calender_Table",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "And": {
+                  "Left": {
+                    "Comparison": {
+                      "ComparisonKind": 2,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Date"
+                        }
+                      },
+                      "Right": {
+                        "DateSpan": {
+                          "Expression": {
+                            "Literal": {
+                              "Value": "datetime'2017-01-01T00:00:00'"
+                            }
+                          },
+                          "TimeUnit": 5
+                        }
+                      }
+                    }
+                  },
+                  "Right": {
+                    "Comparison": {
+                      "ComparisonKind": 4,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "Date"
+                        }
+                      },
+                      "Right": {
+                        "DateSpan": {
+                          "Expression": {
+                            "Literal": {
+                              "Value": "datetime'2018-08-31T00:00:00'"
+                            }
+                          },
+                          "TimeUnit": 5
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "false"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY26SU05",
+          "path": "BaseThemes/CY26SU05.json",
+          "type": "BaseTheme"
+        },
+        {
+          "name": "NewExecutive",
+          "path": "BuiltInThemes/NewExecutive.json",
+          "type": "CustomTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "ic_fluent_building_shop_24_reg22261311357215574.png",
+          "path": "ic_fluent_building_shop_24_reg22261311357215574.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_calendar_ltr_24_regu6838254768256438.png",
+          "path": "ic_fluent_calendar_ltr_24_regu6838254768256438.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_cart_24_regular8582944137897882.png",
+          "path": "ic_fluent_cart_24_regular8582944137897882.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_checkmark_circle_24_9397234164390184.png",
+          "path": "ic_fluent_checkmark_circle_24_9397234164390184.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_chevron_right_24_reg5124540225150663.png",
+          "path": "ic_fluent_chevron_right_24_reg5124540225150663.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_clock_24_regular2310356149982824.png",
+          "path": "ic_fluent_clock_24_regular2310356149982824.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_clock_24_regular4521256380559434.png",
+          "path": "ic_fluent_clock_24_regular4521256380559434.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_currency_dollar_euro8742028498282566.png",
+          "path": "ic_fluent_currency_dollar_euro8742028498282566.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_lightbulb_24_regular3123093791572805.png",
+          "path": "ic_fluent_lightbulb_24_regular3123093791572805.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_payment_24_regular3626038889742035.png",
+          "path": "ic_fluent_payment_24_regular3626038889742035.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_payment_24_regular6608737787230248.png",
+          "path": "ic_fluent_payment_24_regular6608737787230248.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_person_24_regular3078563445848612.png",
+          "path": "ic_fluent_person_24_regular3078563445848612.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_person_money_24_regu08692492919210904.png",
+          "path": "ic_fluent_person_money_24_regu08692492919210904.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_person_money_24_regu10480067266422965.png",
+          "path": "ic_fluent_person_money_24_regu10480067266422965.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_receipt_money_24_reg7220298563093464.png",
+          "path": "ic_fluent_receipt_money_24_reg7220298563093464.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_star_24_regular21780278454008895.png",
+          "path": "ic_fluent_star_24_regular21780278454008895.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_star_24_regular30398344577864767.png",
+          "path": "ic_fluent_star_24_regular30398344577864767.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_vehicle_truck_profil27090044176198136.png",
+          "path": "ic_fluent_vehicle_truck_profil27090044176198136.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_vehicle_truck_profil6568869246639646.png",
+          "path": "ic_fluent_vehicle_truck_profil6568869246639646.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_vehicle_truck_profil9876664883618307.png",
+          "path": "ic_fluent_vehicle_truck_profil9876664883618307.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_warning_24_regular2668867359945274.png",
+          "path": "ic_fluent_warning_24_regular2668867359945274.png",
+          "type": "Image"
+        },
+        {
+          "name": "ic_fluent_warning_24_regular5196963215596693.png",
+          "path": "ic_fluent_warning_24_regular5196963215596693.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true,
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
+  }
+}

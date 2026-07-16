@@ -1,0 +1,46 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "0ca3ae71425a82e0ba69",
+  "position": {
+    "x": 695.91696137015231,
+    "y": 300.30335620481833,
+    "z": 17000,
+    "height": 92,
+    "width": 160,
+    "tabOrder": 17000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "6.59%",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "20pt"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Avg Seller Delayed Rate"
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

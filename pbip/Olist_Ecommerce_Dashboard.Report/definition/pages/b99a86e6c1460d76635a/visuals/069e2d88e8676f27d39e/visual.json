@@ -1,0 +1,204 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "069e2d88e8676f27d39e",
+  "position": {
+    "x": 545.78117647975455,
+    "y": 217.99700409102167,
+    "z": 6000,
+    "height": 300,
+    "width": 968,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "lineStackedColumnComboChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Date_Calender_Table"
+                    }
+                  },
+                  "Property": "Month Short"
+                }
+              },
+              "queryRef": "Date_Calender_Table.Month Short",
+              "nativeQueryRef": "Month Short",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "__Measures"
+                    }
+                  },
+                  "Property": "_13_Avg_Delivery_Days"
+                }
+              },
+              "queryRef": "__Measures._13_Avg_Delivery_Days",
+              "nativeQueryRef": "Avg Delivery Days",
+              "displayName": "Avg Delivery Days"
+            }
+          ]
+        },
+        "Y2": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "__Measures"
+                    }
+                  },
+                  "Property": "__9_Average_Review_Score"
+                }
+              },
+              "queryRef": "__Measures.__9_Average_Review_Score",
+              "nativeQueryRef": "Average Review Score",
+              "displayName": "Average Review Score"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "secTitleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Avg Review Score'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Avg Delivery Days'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Impact of Delivery Speed on Customer Satisfaction'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

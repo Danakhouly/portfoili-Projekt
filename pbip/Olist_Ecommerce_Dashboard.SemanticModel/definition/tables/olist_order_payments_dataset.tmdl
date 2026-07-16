@@ -1,0 +1,104 @@
+table olist_order_payments_dataset
+	lineageTag: 175dfb14-c820-4fd3-bdd5-5d347c9c0292
+
+	column order_id
+		dataType: string
+		lineageTag: 8c4a5744-51a4-4322-972e-4043c1cbdf21
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_sequential
+		dataType: string
+		lineageTag: 1651c0a1-4cfa-49b0-af17-c669597628b8
+		summarizeBy: none
+		sourceColumn: payment_sequential
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: ae0ab495-b234-465a-8129-b4aa1ec99160
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_installments
+		dataType: int64
+		formatString: 0
+		lineageTag: 5975cb52-54ec-4f3a-983e-876ee6a78e09
+		summarizeBy: sum
+		sourceColumn: payment_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_value
+		dataType: double
+		formatString: 0
+		lineageTag: d9c62517-135d-4b7e-aa75-c648965f14c0
+		summarizeBy: sum
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column Installment_Group =
+			
+			SWITCH(
+			    TRUE(),
+			    olist_order_payments_dataset[payment_installments] = 1, "1",
+			    olist_order_payments_dataset[payment_installments] = 2, "2",
+			    olist_order_payments_dataset[payment_installments] = 3, "3",
+			    olist_order_payments_dataset[payment_installments] = 4, "4",
+			    olist_order_payments_dataset[payment_installments] = 5, "5",
+			    olist_order_payments_dataset[payment_installments] = 6, "6",
+			    olist_order_payments_dataset[payment_installments] = 7, "7",
+			    olist_order_payments_dataset[payment_installments] = 8, "8",
+			    olist_order_payments_dataset[payment_installments] = 9, "9",
+			    olist_order_payments_dataset[payment_installments] = 10, "10",
+			    olist_order_payments_dataset[payment_installments] = 11, "11",
+			    olist_order_payments_dataset[payment_installments] = 12, "12",
+			    olist_order_payments_dataset[payment_installments] >= 13, "+13",
+			    BLANK()
+			)
+		lineageTag: 9b90bb8b-502b-4255-881e-7d304d3f5708
+		summarizeBy: none
+		sortByColumn: Installment_Group_sort
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Installment_Group_sort =
+			
+			IF(
+			    ISBLANK(olist_order_payments_dataset[payment_installments]) || olist_order_payments_dataset[payment_installments] = 0,
+			    99,
+			    IF(
+			    olist_order_payments_dataset[payment_installments]>=13,
+			    13,
+			    olist_order_payments_dataset[payment_installments]
+			)
+			)
+		formatString: 0
+		lineageTag: d713ea69-d393-447a-a10c-8ec09c653a64
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition olist_order_payments_dataset = m
+		mode: import
+		source =
+				let
+				    Quelle = Csv.Document(File.Contents("C:\Users\Trainee\Desktop\Portfolio Projekt\Dataset - CSV Files\olist_order_payments_dataset.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Höher gestufte Header" = Table.PromoteHeaders(Quelle, [PromoteAllScalars=true]),
+				    #"Geänderter Typ mit Gebietsschema" = Table.TransformColumnTypes(#"Höher gestufte Header", {{"payment_value", type number}}, "en-US"),
+				    #"Geänderter Typ" = Table.TransformColumnTypes(#"Geänderter Typ mit Gebietsschema",{{"payment_installments", Int64.Type}})
+				in
+				    #"Geänderter Typ"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

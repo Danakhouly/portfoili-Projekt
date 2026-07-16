@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "112b2c284e3cd646ae5f",
+  "position": {
+    "x": 606.58364838187106,
+    "y": 240.30335620481821,
+    "z": 15000,
+    "height": 42,
+    "width": 304,
+    "tabOrder": 15000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Seller Performance Summary",
+                    "textStyle": {
+                      "fontFamily": "Trebuchet MS",
+                      "fontSize": "14pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

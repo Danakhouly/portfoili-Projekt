@@ -1,0 +1,76 @@
+table olist_order_items_dataset
+	lineageTag: f79eee67-b904-45e0-be20-54e04f8aef86
+
+	column order_id
+		dataType: string
+		lineageTag: 405bf47d-996d-4c9e-9baf-27b4b587dfe5
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: string
+		lineageTag: f27cb931-1fa2-4af6-9d2c-3ef93e0beb53
+		summarizeBy: none
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: e0333972-c43e-43b4-9ac4-e6bf22c2fb0e
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		lineageTag: 2f4ad7f8-59d1-47b9-b6e2-eb7752243969
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_limit_date
+		dataType: string
+		lineageTag: d91c6c50-e249-4bb0-bff8-3eddb53714ba
+		summarizeBy: none
+		sourceColumn: shipping_limit_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		formatString: 0
+		lineageTag: 19b95325-f56d-4ccc-9edb-e38df7d538d1
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+	column freight_value
+		dataType: double
+		formatString: 0
+		lineageTag: addad331-69e5-4602-8cc1-5e625a477eb5
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition olist_order_items_dataset = m
+		mode: import
+		source =
+				let
+				    Quelle = Csv.Document(File.Contents("C:\Users\Trainee\Desktop\Portfolio Projekt\Dataset - CSV Files\olist_order_items_dataset.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Höher gestufte Header" = Table.PromoteHeaders(Quelle, [PromoteAllScalars=true]),
+				    #"Geänderter Typ mit Gebietsschema" = Table.TransformColumnTypes(#"Höher gestufte Header", {{"price", type number}}, "en-US"),
+				    #"Geänderter Typ mit Gebietsschema1" = Table.TransformColumnTypes(#"Geänderter Typ mit Gebietsschema", {{"freight_value", type number}}, "en-US")
+				in
+				    #"Geänderter Typ mit Gebietsschema1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
