@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 448.63249155682075,
-        "y": 0
+        "x": 0,
+        "y": 50.666667938232422
       },
       "nodes": [
         {
           "location": {
-            "x": 337.35289854350583,
-            "y": 0
+            "x": 748.62724408954045,
+            "y": 287.20306304000172
           },
           "nodeIndex": "olist_orders_dataset",
           "nodeLineageTag": "33af1157-3146-4032-a457-383910f130e5",
@@ -19,64 +19,38 @@
             "height": 272,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 687.76496451486332,
-            "y": 0
+            "x": 1160.3385598553511,
+            "y": 253.12086967748871
           },
           "nodeIndex": "olist_order_items_dataset",
           "nodeLineageTag": "f79eee67-b904-45e0-be20-54e04f8aef86",
           "size": {
-            "height": 282,
+            "height": 280.24295365341925,
             "width": 234
           },
           "zIndex": 8
         },
         {
           "location": {
-            "x": 1072.3461428041592,
-            "y": 0
-          },
-          "nodeIndex": "olist_products_dataset",
-          "nodeLineageTag": "335992dc-00b4-4dae-ac58-85f6032cf495",
-          "size": {
-            "height": 296,
-            "width": 234
-          },
-          "zIndex": 5
-        },
-        {
-          "location": {
-            "x": 1100.2294421747256,
-            "y": 491.641508146083
+            "x": 341.02988159800981,
+            "y": 245.15945116820029
           },
           "nodeIndex": "olist_customers_dataset",
           "nodeLineageTag": "2f39a4eb-ad81-4670-9380-d392cba8c4ae",
           "size": {
-            "height": 200,
+            "height": 230.92101185905233,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 7
         },
         {
           "location": {
-            "x": 1708.7971089853274,
+            "x": 226.50858649865359,
             "y": 0
-          },
-          "nodeIndex": "product_category_name_translation",
-          "nodeLineageTag": "9983cbb0-2fdf-4db8-8156-99c173aaf7cb",
-          "size": {
-            "height": 128,
-            "width": 234
-          },
-          "zIndex": 10
-        },
-        {
-          "location": {
-            "x": 1379.5879340286426,
-            "y": 60.133589977800568
           },
           "nodeIndex": "__Measures",
           "nodeLineageTag": "5cf67d7d-f9d8-432d-b3ba-d9acdcabd8b7",
@@ -88,8 +62,8 @@
         },
         {
           "location": {
-            "x": 398.84160250554987,
-            "y": 461.89459540852255
+            "x": 1261.7605260869304,
+            "y": 676.64899436312157
           },
           "nodeIndex": "olist_order_payments_dataset",
           "nodeLineageTag": "175dfb14-c820-4fd3-bdd5-5d347c9c0292",
@@ -101,8 +75,8 @@
         },
         {
           "location": {
-            "x": 0,
-            "y": 491.08334350585938
+            "x": 431.36453042371534,
+            "y": 620.63171276246055
           },
           "nodeIndex": "olist_order_reviews_dataset",
           "nodeLineageTag": "bd933c8b-34ed-4f4c-b79e-fc27924ffeed",
@@ -114,7 +88,7 @@
         },
         {
           "location": {
-            "x": 0,
+            "x": 752.09627917116575,
             "y": 0
           },
           "nodeIndex": "Date_Calender_Table",
@@ -123,12 +97,12 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 9
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 1342.6899607504465,
-            "y": 278.02757905976819
+            "x": 1313.1923887245518,
+            "y": 0
           },
           "nodeIndex": "olist_sellers_dataset",
           "nodeLineageTag": "6483c515-74b7-4307-be1b-e16f022c5175",
@@ -140,7 +114,7 @@
         }
       ],
       "name": "Alle Tabellen",
-      "zoomValue": 56.913695073895809,
+      "zoomValue": 50,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

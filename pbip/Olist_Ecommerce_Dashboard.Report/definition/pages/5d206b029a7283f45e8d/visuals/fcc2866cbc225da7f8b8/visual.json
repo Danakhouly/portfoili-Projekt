@@ -287,5 +287,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "a246eb038e3161101a80",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "__Measures"
+              }
+            },
+            "Property": "__4_Total_Orders"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
